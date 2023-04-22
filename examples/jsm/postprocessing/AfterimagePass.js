@@ -83,13 +83,13 @@ class AfterimagePass extends Pass {
 	setSize( width, height ) {
 
 		if(this.textureComp === undefined) {
-		this.textureComp = new WebGLRenderTarget( renderer.width, renderer.height, {
+		this.textureComp = new WebGLRenderTarget( width, height, {
 			magFilter: NearestFilter,
 		} );
 		}
 
 		if(this.textureOld === undefined) {
-		this.textureOld = new WebGLRenderTarget( renderer.width, renderer.height, {
+		this.textureOld = new WebGLRenderTarget( width, height, {
 			magFilter: NearestFilter,
 		} );
 		}
