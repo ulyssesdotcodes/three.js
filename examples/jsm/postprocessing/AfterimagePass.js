@@ -21,16 +21,6 @@ class AfterimagePass extends Pass {
 
 		this.uniforms[ 'damp' ].value = damp;
 
-		this.textureComp = new WebGLRenderTarget( window.innerWidth, window.innerHeight, {
-			magFilter: NearestFilter,
-			type: HalfFloatType
-		} );
-
-		this.textureOld = new WebGLRenderTarget( window.innerWidth, window.innerHeight, {
-			magFilter: NearestFilter,
-			type: HalfFloatType
-		} );
-
 		this.compFsMaterial = new ShaderMaterial( {
 
 			uniforms: this.uniforms,
@@ -48,6 +38,17 @@ class AfterimagePass extends Pass {
 
 	render( renderer, writeBuffer, readBuffer/*, deltaTime, maskActive*/ ) {
 
+		if(this.textureComp === undefined) {
+		this.textureComp = new WebGLRenderTarget( renderer.width, renderer.height, {
+			magFilter: NearestFilter,
+		} );
+		}
+
+		if(this.textureOld === undefined) {
+		this.textureOld = new WebGLRenderTarget( renderer.width, renderer.height, {
+			magFilter: NearestFilter,
+		} );
+		}
 		this.uniforms[ 'tOld' ].value = this.textureOld.texture;
 		this.uniforms[ 'tNew' ].value = readBuffer.texture;
 
@@ -80,6 +81,18 @@ class AfterimagePass extends Pass {
 	}
 
 	setSize( width, height ) {
+
+		if(this.textureComp === undefined) {
+		this.textureComp = new WebGLRenderTarget( renderer.width, renderer.height, {
+			magFilter: NearestFilter,
+		} );
+		}
+
+		if(this.textureOld === undefined) {
+		this.textureOld = new WebGLRenderTarget( renderer.width, renderer.height, {
+			magFilter: NearestFilter,
+		} );
+		}
 
 		this.textureComp.setSize( width, height );
 		this.textureOld.setSize( width, height );
